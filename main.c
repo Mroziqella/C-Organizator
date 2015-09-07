@@ -1,3 +1,10 @@
+/**
+******************* Organizator luty 2015 *********************
+********************** Autor: Mróz Kamil **********************
+****************** e-mail: mroziqella@o2.pl *******************
+************ Github:https://github.com/Mroziqella *************
+**/
+
 #include "header/mysys.h"
 #include "header/teksty.h"
 #include "header/operacje.h"
