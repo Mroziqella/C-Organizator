@@ -10,40 +10,46 @@ void WysrodkujTekst(FILE *sciezka,char *tekst)//wysrodkowuje tekst
 
 void dzien(FILE *sciezka,uint2 dzien)
 {
-  if (dzien==0)
-    {
-        WysrodkujTekst(sciezka,SO);
-        fprintf(sciezka,SO"\n");
-    }
-    else if(dzien==1)
+    if (dzien==0)
     {
         WysrodkujTekst(sciezka,ND);
         fprintf(sciezka,ND"\n");
     }
-    else if(dzien==2)
+    else if(dzien==1)
     {
+
         WysrodkujTekst(sciezka,PON);
         fprintf(sciezka,PON"\n");
     }
-    else if(dzien==3)
+    else if(dzien==2)
     {
+
         WysrodkujTekst(sciezka,WT);
         fprintf(sciezka,WT"\n");
     }
-    else if(dzien==4)
+    else if(dzien==3)
     {
+
         WysrodkujTekst(sciezka,SR);
         fprintf(sciezka,SR"\n");
     }
-    else if(dzien==5)
+    else if(dzien==4)
     {
+
         WysrodkujTekst(sciezka,CZ);
         fprintf(sciezka,CZ"\n");
     }
-    else if(dzien==6)
+    else if(dzien==5)
     {
+
         WysrodkujTekst(sciezka,PT);
         fprintf(sciezka,PT"\n");
+    }
+    else if(dzien==6)
+    {
+        WysrodkujTekst(sciezka,SO);
+        fprintf(sciezka,SO"\n");
+
     }
 }
 
@@ -53,9 +59,9 @@ void wypisz(wezel *wsk)
     fprintf(stdout,KALENDARZ"\n\n\n\n\n");
     fprintf(stdout,"ENTER-zmiana opisu, a,s-poruszanie miedzy dniami,+/- -pokarz/ukryj dzien\n");
     if(wsk->wydarzenie==1)
-            fprintf(stdout,"Status dnia: widzoczny\n");
+        fprintf(stdout,"Status dnia: widzoczny\n");
     if(wsk->wydarzenie==0)
-            fprintf(stdout,"Status dnia: ukryty\n");
+        fprintf(stdout,"Status dnia: ukryty\n");
     fprintf(stdout,"--------------------------------------------------------------------------------\n");
     WysrodkujTekst(stdout,"dd-mm-rrrr");
     fprintf(stdout,"%i-%i-%i\n",wsk->dzien,wsk->miesiac+1,wsk->rok);
@@ -117,31 +123,32 @@ void opcje(char *sciezka)
     uint4 i=0;
     while(znak!=ESC)
     {
-            fprintf(stdout,"Sciezka do eksportowania: %s\n\n\n\n",sciezka);
-            WysrodkujTekst(stdout,"1-Zmien sciezke eksportu pliku");
-            fprintf(stdout,"1-Zmien sciezke eksportu pliku\n");
-            znak=getch();
-            switch(znak)
-            {
-                case '1':
-                        {
-                            fprintf(stdout,"Podaj nowa sciezke eksportu do pliku:");
-                            fgets(sciezka,ROZMIAR_SCIEZKI,stdin);
-                            for(i=0;sciezka[i]!='\0';i++);
-                            sciezka[i-1]='\0';
-                            system("cls");
-                            break;
-                        }
-                default : continue;
-            }
+        fprintf(stdout,"Sciezka do eksportowania: %s\n\n\n\n",sciezka);
+        WysrodkujTekst(stdout,"1-Zmien sciezke eksportu pliku");
+        fprintf(stdout,"1-Zmien sciezke eksportu pliku\n");
+        znak=getch();
+        switch(znak)
+        {
+        case '1':
+        {
+            fprintf(stdout,"Podaj nowa sciezke eksportu do pliku:");
+            fgets(sciezka,ROZMIAR_SCIEZKI,stdin);
+            for(i=0; sciezka[i]!='\0'; i++);
+            sciezka[i-1]='\0';
+            system("cls");
+            break;
+        }
+        default :
+            continue;
+        }
     }
 }
 
 void generuj(wezel *wsk,uint4 dni)
 {
     uint4 i;
-    for (i=0;i<dni;i++)
-     wsk=kalendarzNast(wsk);
+    for (i=0; i<dni; i++)
+        wsk=kalendarzNast(wsk);
 }
 
 void menu()
@@ -157,76 +164,77 @@ void menu()
     {
         switch (znak)
         {
-            case '1':
-                    {
-                        system("CLS");
-                        kalendarz(wsk);
-                        break;
-                    }
-            case '2':
-                    {
-                        if (zapisz(sciezka,wsk)==1)
-                        {
-                            fprintf(stdout,"\nEksportowanie pliku zakonczylo sie pomyslnie\n");
-                        }
-                        else
-                        {
-                            fprintf(stdout,"\nEksportowanie pliku - Blad!!!\n");
-                        }
-                        system("pause");
-                        system("CLS");
-                        break;
-                    }
-            case '3':
-                    {
-                        fprintf(stdout,"\n\n\n\n");
-                        podglad(stdout,wsk);
-                        system("pause");
-                        system("CLS");
-                        break;
-                    }
-            case '4':
-                    {
-                        ukryjBezOpisu(wsk);// ukrywa wezly bez opisu w podgladzie
-                        fprintf(stdout,"\n\n\n");
-                        WysrodkujTekst(stdout,"Ukryto");
-                        fprintf(stdout,"Ukryto\n");
-                        system("pause");
-                        system("CLS");
-                        break;
-                    }
-            case '5':
-                    {
-                        pokazBezOpisu(wsk);//pokazuje wezly bez opisu w podgladzie
-                        fprintf(stdout,"\n\n\n");
-                        WysrodkujTekst(stdout,"Pokazano");
-                        fprintf(stdout,"Pokazano\n");
-                        system("pause");
-                        system("CLS");
-                        break;
-                    }
-            case '6':
-                    {
-                        wyczyscliste(wsk);
-                        pokazBezOpisu(wsk);
-                        fprintf(stdout,"\n\n\n");
-                        WysrodkujTekst(stdout,"Lista zostala wyczyszczona");
-                        fprintf(stdout,"Lista zostala wyczyszczona!!!\n");
-                        system("pause");
-                        system("CLS");
-                        break;
-                    }
-            case '7':
-                    {
-                        system("cls");
-                        opcje(sciezka);
-                        system("cls");
-                        break;
-                    }
+        case '1':
+        {
+            system("CLS");
+            kalendarz(wsk);
+            break;
+        }
+        case '2':
+        {
+            if (zapisz(sciezka,wsk)==1)
+            {
+                fprintf(stdout,"\nEksportowanie pliku zakonczylo sie pomyslnie\n");
+            }
+            else
+            {
+                fprintf(stdout,"\nEksportowanie pliku - Blad!!!\n");
+            }
+            system("pause");
+            system("CLS");
+            break;
+        }
+        case '3':
+        {
+            fprintf(stdout,"\n\n\n\n");
+            podglad(stdout,wsk);
+            system("pause");
+            system("CLS");
+            break;
+        }
+        case '4':
+        {
+            ukryjBezOpisu(wsk);// ukrywa wezly bez opisu w podgladzie
+            fprintf(stdout,"\n\n\n");
+            WysrodkujTekst(stdout,"Ukryto");
+            fprintf(stdout,"Ukryto\n");
+            system("pause");
+            system("CLS");
+            break;
+        }
+        case '5':
+        {
+            pokazBezOpisu(wsk);//pokazuje wezly bez opisu w podgladzie
+            fprintf(stdout,"\n\n\n");
+            WysrodkujTekst(stdout,"Pokazano");
+            fprintf(stdout,"Pokazano\n");
+            system("pause");
+            system("CLS");
+            break;
+        }
+        case '6':
+        {
+            wyczyscliste(wsk);
+            pokazBezOpisu(wsk);
+            fprintf(stdout,"\n\n\n");
+            WysrodkujTekst(stdout,"Lista zostala wyczyszczona");
+            fprintf(stdout,"Lista zostala wyczyszczona!!!\n");
+            system("pause");
+            system("CLS");
+            break;
+        }
+        case '7':
+        {
+            system("cls");
+            opcje(sciezka);
+            system("cls");
+            break;
+        }
 
-            default:{
-                    continue;
-                    }
+        default:
+        {
+            continue;
+        }
         }
         MENU(stdout);
 
@@ -239,55 +247,55 @@ void menu()
 uint2 kalendarz(wezel *wsk)
 {
     char znak='0';
-     while(1)
+    while(1)
     {
         switch(znak)
         {
         case 'd':
-                {
-                wsk=kalendarzNast(wsk);
-                break;
-                }
+        {
+            wsk=kalendarzNast(wsk);
+            break;
+        }
         case 'a':
-                {
-                wsk=kalendarzPoprz(wsk);
-                break;
-                }
+        {
+            wsk=kalendarzPoprz(wsk);
+            break;
+        }
         case 'e':
-                {
-                wsk=kalendarzNastZOpis(wsk);
-                break;
-                }
+        {
+            wsk=kalendarzNastZOpis(wsk);
+            break;
+        }
         case 'q':
-                {
-                wsk=kalendarzPoprzZOpis(wsk);
-                break;
-                }
+        {
+            wsk=kalendarzPoprzZOpis(wsk);
+            break;
+        }
         case '+':
-                {
-                wsk->wydarzenie=1;
-                break;
-                }
+        {
+            wsk->wydarzenie=1;
+            break;
+        }
         case '-':
-                {
-                wsk->wydarzenie=0;
-                break;
-                }
+        {
+            wsk->wydarzenie=0;
+            break;
+        }
         case ENTER:
-                {
+        {
+            wsk->tekst[0]='\0';
+            wypisz(wsk);
+            fprintf(stdout,"Nowy opis:\n");
+            fgets(wsk->tekst,DLUGOSC_TEKSTU,stdin);
+            if (wsk->tekst[0]==10)
                 wsk->tekst[0]='\0';
-                wypisz(wsk);
-                fprintf(stdout,"Nowy opis:\n");
-                fgets(wsk->tekst,DLUGOSC_TEKSTU,stdin);
-                if (wsk->tekst[0]==10)
-                    wsk->tekst[0]='\0';
-                system("CLS");
-                break;
-                }
+            system("CLS");
+            break;
+        }
         case ESC:
-                {
-                return 1;
-                }
+        {
+            return 1;
+        }
         }
         wypisz(wsk);
         znak=getch();
