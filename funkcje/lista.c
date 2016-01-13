@@ -11,7 +11,7 @@ int2 listaStart(wezel *wsk)
     wsk->poprz=NULL;
     wsk->glowa=wsk;
     wsk->dzien=tmp->tm_mday;//dzien miesiaca
-    wsk->dzienTyg=tmp->tm_mday%7;// jaki dzien tyg
+    wsk->dzienTyg=tmp->tm_wday;// jaki dzien tyg
     wsk->miesiac=tmp->tm_mon;// nr miesiaca
     wsk->rok=1900+tmp->tm_year;//lata od 1900
     wsk->tekst[0]='\0';
@@ -45,7 +45,7 @@ wezel* dodajWezel (wezel *lista)
         printf("Brak pamieci!!!");
         return NULL;
     }
-    if (wsk->dzienTyg<6) // liczy który jest dzien tyg od so-pt
+    if (wsk->dzienTyg<6) // liczy ktÃ³ry jest dzien tyg od nd-so
         nowy->dzienTyg=wsk->dzienTyg+1;
     else
         nowy->dzienTyg=0;
